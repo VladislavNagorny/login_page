@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        .container h2 {
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            position: relative;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: calc(100% - 30px); /* Adjusted width to accommodate the 'show password' icon */
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .form-group .toggle-password {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            line-height: 1;
+            opacity: 0.5; /* Initial opacity */
+            z-index: 1; /* Ensures the icon appears above the input */
+        }
+        .form-group .toggle-password:hover {
+            opacity: 1; /* Full opacity on hover */
+        }
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #45a049;
+        }
+        .errors {
+            color: red;
+            margin-bottom: 15px;
+        }
+        .errors ul {
+            padding-left: 20px;
+        }
+        .errors li {
+            margin-bottom: 5px;
+        }
+        .hint {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+        .hint ul {
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Registration Form</h2>
+        <!-- Display errors if any -->
+        {% if errors %}
+            <div class="errors">
+                <ul>
+                {% for error in errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        <form method="POST" action="/register">
+            <!-- Username field -->
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" value="{{ username }}" required>
+            </div>
+            <!-- Password field -->
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <div style="position: relative;">
+                    <input type="password" id="password" name="password" value="{{ password }}" required>
+                    <span class="toggle-password" onclick="togglePasswordVisibility('password')">👁️</span>
+                </div>
+            </div>
+            <!-- Confirm Password field -->
+            <div class="form-group">
+                <label for="confirm_password">Confirm Password:</label>
+                <div style="position: relative;">
+                    <input type="password" id="confirm_password" name="confirm_password" value="{{ confirm_password }}" required>
+                    <span class="toggle-password" onclick="togglePasswordVisibility('confirm_password')">👁️</span>
+                </div>
+            </div>
+            <!-- Submit button -->
+            <div class="form-group">
+                <button type="submit">Register</button>
+            </div>
+        </form>
+        <!-- Password and Username hints -->
+        <div class="hint">
+            <p>Username requirements:</p>
+            <ul>
+                <li>Between 6 and 20 characters long</li>
+            </ul>
+            <p>Password requirements:</p>
+            <ul>
+                <li>Between 8 and 30 characters long</li>
+                <li>At least one uppercase letter</li>
+                <li>At least one lowercase letter</li>
+                <li>At least one digit</li>
+                <li>At least one special character !@#$%^&*()_+</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- JavaScript to toggle password visibility -->
+    <script>
+        function togglePasswordVisibility(inputId) {
+            var input = document.getElementById(inputId);
+            if (input.type === "password") {
+                input.type = "text";
+            } else {
+                input.type = "password";
+            }
+        }
+    </script>
+</body>
+</html>

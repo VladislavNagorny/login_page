@@ -1,0 +1,59 @@
+<!-- templates/users.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registered Users</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 50%;
+        }
+        .container h2 {
+            margin-bottom: 20px;
+        }
+        .user-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .user-list li {
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-bottom: 1px solid #ddd;
+        }
+        .user-list li:last-child {
+            border-bottom: none;
+        }
+        .user-list li span {
+            font-weight: bold;
+        }
+        .back-button {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Registered Users</h2>
+        <ul class="user-list">
+            {% for username in users.keys() %}
+                <li><span>{{ username }}</span></li>
+            {% endfor %}
+        </ul>
+        <a href="{{ url_for('home') }}" class="back-button">Back to Registration</a>
+    </div>
+</body>
+</html>
