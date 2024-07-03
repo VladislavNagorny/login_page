@@ -8,7 +8,6 @@ users = {
     'existing_user': 'Qwerty1!'
 }
 
-
 def validate_password(password):
     """Function to validate password"""
     errors = []
@@ -30,11 +29,9 @@ def validate_password(password):
 
     return errors
 
-
 @app.route('/')
 def home():
     return render_template('register.html')
-
 
 @app.route('/register', methods=['POST'])
 def register():
@@ -64,13 +61,12 @@ def register():
         users[username] = password
         return redirect(url_for('view_users'))
 
-    return render_template('register.html', errors=errors)
-
+    # If there are errors, render the template with errors and input values
+    return render_template('register.html', errors=errors, username=username, password=password, confirm_password=confirm_password)
 
 @app.route('/users')
 def view_users():
     return render_template('users.html', users=users)
-
 
 @app.route('/api/register', methods=['POST'])
 def api_register():
@@ -104,11 +100,9 @@ def api_register():
 
     return jsonify({'errors': errors}), 400
 
-
 @app.route('/api/users', methods=['GET'])
 def api_view_users():
     return jsonify({'users': list(users.keys())})
-
 
 if __name__ == '__main__':
     app.run(debug=True)
